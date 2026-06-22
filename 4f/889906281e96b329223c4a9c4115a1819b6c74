@@ -1,0 +1,39 @@
+src/main/java/com/cobre/eventnotifications/infrastructure/webhook/CloudEventEnvelope.java
+  s_a4496404aab045::t_25c92cd02c93f2 17
+  s_a4496404aab045::t_7a213bc55197c4 1-16
+src/main/java/com/cobre/eventnotifications/infrastructure/webhook/BlockedTargetException.java
+  s_a4496404aab045::t_4f7e30e602f7ce 1-8
+  s_a4496404aab045::t_25c92cd02c93f2 9
+src/main/java/com/cobre/eventnotifications/infrastructure/webhook/SsrfGuard.java
+  s_a4496404aab045::t_d74d718152834f 1-71
+  s_a4496404aab045::t_25c92cd02c93f2 72
+src/main/java/com/cobre/eventnotifications/infrastructure/webhook/RetryableDeliveryException.java
+  s_a4496404aab045::t_88a0cf1ad71585 1-28
+  s_a4496404aab045::t_25c92cd02c93f2 29
+src/main/java/com/cobre/eventnotifications/infrastructure/webhook/ResilientWebhookClient.java
+  s_a4496404aab045::t_25c92cd02c93f2 121-122,125-126,239
+  s_a4496404aab045::t_84e74ef7cfe785 12
+  s_a4496404aab045::t_6a364d32340eb6 85-96
+  s_a4496404aab045::t_35e52d1616e24f 1-11,13-84,97-120,123-124,127-238
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "4f889906281e96b329223c4a9c4115a1819b6c74",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
