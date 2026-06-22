@@ -1,0 +1,30 @@
+src/main/java/com/cobre/eventnotifications/infrastructure/config/AsyncDeliveryDispatcher.java
+  s_a4496404aab045::t_25c92cd02c93f2 28
+  s_a4496404aab045::t_c0d5d312c5e704 1-27
+build.gradle
+  s_a4496404aab045::t_c99a4dc75c2342 27-28
+src/main/java/com/cobre/eventnotifications/infrastructure/config/WebhookConfiguration.java
+  s_a4496404aab045::t_25c92cd02c93f2 47-48,97
+  s_a4496404aab045::t_b5e1fcffaa3748 1-46,49-96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "2019604ca7195d9df374f01e90cc835df261f768",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
