@@ -1,0 +1,74 @@
+src/main/java/com/cobre/eventnotifications/infrastructure/web/ReplayResponse.java
+  s_a4496404aab045::t_868e130c2ccff1 8
+  s_a4496404aab045::t_4d572e30804e3e 1-7
+src/main/java/com/cobre/eventnotifications/infrastructure/web/WebMapper.java
+  s_a4496404aab045::t_868e130c2ccff1 49
+  s_a4496404aab045::t_182de5c8a81c18 1-48
+src/main/java/com/cobre/eventnotifications/infrastructure/web/HeaderClientIdResolver.java
+  s_a4496404aab045::t_868e130c2ccff1 25
+  s_a4496404aab045::t_6ac568310b7d1d 1-24
+src/main/java/com/cobre/eventnotifications/infrastructure/config/SecurityConfig.java
+  s_a4496404aab045::t_868e130c2ccff1 25
+  s_a4496404aab045::t_61b4f3efbebc58 1-5,7-16,18-24
+  s_a4496404aab045::t_f6a9517fd2f925 6
+  s_a4496404aab045::t_88c93bb94f3cdb 17
+src/main/java/com/cobre/eventnotifications/infrastructure/web/NotificationSummaryResponse.java
+  s_a4496404aab045::t_21d5719e03155e 1-11
+  s_a4496404aab045::t_868e130c2ccff1 12
+src/main/java/com/cobre/eventnotifications/infrastructure/config/TemporaryDeliveryDispatcher.java
+  s_a4496404aab045::t_868e130c2ccff1 22
+  s_a4496404aab045::t_18f502ff9fbd15 1-21
+src/main/java/com/cobre/eventnotifications/infrastructure/web/ClientIdResolver.java
+  s_a4496404aab045::t_a79208ca5c24ce 1-12
+  s_a4496404aab045::t_868e130c2ccff1 13
+src/main/java/com/cobre/eventnotifications/infrastructure/web/GlobalExceptionHandler.java
+  s_a4496404aab045::t_ad4a40b3298325 48-57
+  s_a4496404aab045::t_09f7f7f00f9cdc 7
+  s_a4496404aab045::t_4769128f2d5d9f 1-6,8-22,25-35,41-47,58-81,84-87
+  s_a4496404aab045::t_868e130c2ccff1 23-24,36-40,82-83,88
+src/main/java/com/cobre/eventnotifications/infrastructure/web/NotificationDetailResponse.java
+  s_a4496404aab045::t_76345c4cecffe3 1-13
+  s_a4496404aab045::t_868e130c2ccff1 14
+src/main/java/com/cobre/eventnotifications/infrastructure/web/PublicDeliveryStatus.java
+  s_a4496404aab045::t_a5a35eaad9852d 1-33
+  s_a4496404aab045::t_868e130c2ccff1 34
+src/main/java/com/cobre/eventnotifications/infrastructure/config/UseCaseConfiguration.java
+  s_a4496404aab045::t_868e130c2ccff1 39,42
+  s_a4496404aab045::t_1a3284a8e0b971 1-38,40-41
+src/main/java/com/cobre/eventnotifications/infrastructure/web/NotificationController.java
+  s_a4496404aab045::t_868e130c2ccff1 126
+  s_a4496404aab045::t_e2dd770ce76b5c 1-125
+src/main/java/com/cobre/eventnotifications/infrastructure/web/CursorCodec.java
+  s_a4496404aab045::t_fd6bc9d824569f 1-37
+  s_a4496404aab045::t_868e130c2ccff1 38
+src/main/java/com/cobre/eventnotifications/infrastructure/web/NotificationPageResponse.java
+  s_a4496404aab045::t_e639bc37f2a42c 1-8
+  s_a4496404aab045::t_868e130c2ccff1 9
+src/main/java/com/cobre/eventnotifications/infrastructure/web/DeliveryAttemptResponse.java
+  s_a4496404aab045::t_30992fe789a9b9 1-11
+  s_a4496404aab045::t_868e130c2ccff1 12
+src/main/java/com/cobre/eventnotifications/infrastructure/web/BadRequestException.java
+  s_a4496404aab045::t_868e130c2ccff1 9
+  s_a4496404aab045::t_326b703517d979 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "4d83c97f2d43aa8c747549c7a99a2d200b654843",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
