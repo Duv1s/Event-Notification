@@ -1,0 +1,28 @@
+.github/workflows/codeql.yml
+  s_a4496404aab045::t_b445a2dd178bfe 1-41
+.github/dependabot.yml
+  s_a4496404aab045::t_76de716beb2389 1-13
+.github/workflows/ci.yml
+  s_a4496404aab045::t_6131769950873a 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "d3262e40b238da56e0dc6efaa10651cd2c5e475b",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
