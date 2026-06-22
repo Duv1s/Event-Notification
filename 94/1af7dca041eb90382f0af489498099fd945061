@@ -1,0 +1,14 @@
+src/main/java/com/cobre/eventnotifications/domain/Notification.java
+  h_46a69605d9e144 129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "941af7dca041eb90382f0af489498099fd945061",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
