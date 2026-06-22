@@ -1,0 +1,39 @@
+.gitignore
+  s_a4496404aab045::t_7c25882c8e3b1c 38-42
+settings.gradle
+  s_a4496404aab045::t_64f6cf3092cfc8 1-6
+build.gradle
+  s_e9e74207627da8::t_e761bdc99c7a16 14
+  s_a4496404aab045::t_68e358d385dfd1 5-8,15-16,20,23-74
+gradle.properties
+  s_a4496404aab045::t_c1f7133819677c 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "c9e0a63b77d6071f7151d59d1ca393973f428cc5",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    },
+    "s_e9e74207627da8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d2543c9c-ef80-407f-b4b9-5aad85b2098c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
