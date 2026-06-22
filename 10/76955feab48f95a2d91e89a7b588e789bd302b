@@ -1,0 +1,34 @@
+src/test/resources/jwt/demo-signing-jwk.json
+  s_a4496404aab045::t_492c266e2cf555 1
+src/test/java/com/cobre/eventnotifications/infrastructure/web/JwtTestTokens.java
+  s_a4496404aab045::t_353e007e4f0859 74
+  s_a4496404aab045::t_bd0c6eec0498ab 1-73
+src/test/java/com/cobre/eventnotifications/infrastructure/web/RateLimitTest.java
+  s_a4496404aab045::t_353e007e4f0859 59
+  s_a4496404aab045::t_d27780c143fae7 1-14,16-58
+  s_a4496404aab045::t_0a63c76098711e 15
+src/test/java/com/cobre/eventnotifications/infrastructure/web/NotificationControllerTest.java
+  s_a4496404aab045::t_353e007e4f0859 50,172,181
+  s_a4496404aab045::t_f3fd51af2d1726 8,42-43,46,49,67-76,95-96,103,110-118,125,135-145,153,163,190,199,202,209,212,217,231,242,246-287
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "1076955feab48f95a2d91e89a7b588e789bd302b",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
