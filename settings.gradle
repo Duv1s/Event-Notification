@@ -1,0 +1,6 @@
+plugins {
+    // Lets Gradle auto-provision the Java 26 toolchain (e.g. on CI) when it is not installed.
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'EventNotifications'

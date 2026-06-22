@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.diffplug.spotless' version '8.7.0'
+}
+
+group = 'com.cobre'
+version = '0.0.1-SNAPSHOT'
+description = 'Event Notifications'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(26)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // --- Web / API ---
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-restclient'
+
+    // --- Security (OAuth2 resource server) ---
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+    // --- Observability ---
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    // --- Resilience (Spring Boot 4 compatible module; not -spring-boot3) ---
+    implementation 'io.github.resilience4j:resilience4j-spring-boot4:2.4.0'
+
+    // --- Rate limiting (JDK17+ variant) ---
+    implementation 'com.bucket4j:bucket4j_jdk17-core:8.19.0'
+
+    // --- API documentation (3.0.x is the first line supporting Spring Framework 7 / Boot 4) ---
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
+
+    // --- Boilerplate ---
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // --- Test ---
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-restclient-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.tngtech.archunit:archunit-junit5:1.4.2'
+    testImplementation 'org.wiremock:wiremock-standalone:3.13.2'
+    testImplementation 'com.nimbusds:nimbus-jose-jwt'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+spotless {
+    java {
+        palantirJavaFormat()
+        removeUnusedImports()
+        importOrder()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
