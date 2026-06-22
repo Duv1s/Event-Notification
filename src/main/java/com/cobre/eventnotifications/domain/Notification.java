@@ -126,7 +126,7 @@ public final class Notification {
     }
 
     private Optional<DeliveryAttempt> lastAttempt() {
-        return attempts.isEmpty() ? Optional.empty() : Optional.of(attempts.get(attempts.size() - 1));
+        return attempts.isEmpty() ? Optional.empty() : Optional.of(attempts.getLast());
     }
 
     // --- Accessors ---
