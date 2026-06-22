@@ -1,0 +1,75 @@
+src/main/java/com/cobre/eventnotifications/application/port/Cursor.java
+  s_a4496404aab045::t_34fb79ccc42697 1-16
+  s_a4496404aab045::t_8497816663be16 17
+src/main/java/com/cobre/eventnotifications/application/port/NotificationQuery.java
+  s_a4496404aab045::t_a616939db446df 1-15,17-23,25-36
+  s_a4496404aab045::t_4ce688b105ae6a 16,24
+  s_a4496404aab045::t_96ddc7d132443b 37
+src/main/java/com/cobre/eventnotifications/application/exception/ReplayNotAllowedException.java
+  s_a4496404aab045::t_ad9fb1117d074e 1-11
+  s_a4496404aab045::t_8497816663be16 12
+src/main/java/com/cobre/eventnotifications/application/exception/package-info.java
+  s_a4496404aab045::t_8497816663be16 2
+  s_a4496404aab045::t_371330bcae8b7f 1
+src/main/java/com/cobre/eventnotifications/application/exception/ApplicationException.java
+  s_a4496404aab045::t_8497816663be16 9
+  s_a4496404aab045::t_d0a4f6307bd94b 1-8
+src/main/java/com/cobre/eventnotifications/application/port/NotificationPage.java
+  s_a4496404aab045::t_b49c5f8db0b55f 7-10,12
+  s_a4496404aab045::t_96ddc7d132443b 17
+  s_a4496404aab045::t_c6d8a446b2d0f7 1-6,11,13-16
+src/main/java/com/cobre/eventnotifications/application/port/DeliveryOutcome.java
+  s_a4496404aab045::t_e81037b889a406 1-29
+  s_a4496404aab045::t_8497816663be16 30
+src/main/java/com/cobre/eventnotifications/application/usecase/ReplayNotification.java
+  s_a4496404aab045::t_8497816663be16 38,64
+  s_a4496404aab045::t_6f5f4133841cec 1-37,39-63
+src/main/java/com/cobre/eventnotifications/application/exception/SubscriptionNotEligibleException.java
+  s_a4496404aab045::t_8497816663be16 16
+  s_a4496404aab045::t_6432703deccde7 1-15
+src/main/java/com/cobre/eventnotifications/application/port/DeliveryDispatcher.java
+  s_a4496404aab045::t_8497816663be16 13
+  s_a4496404aab045::t_1b4bc48a246186 1-12
+src/main/java/com/cobre/eventnotifications/application/port/WebhookClient.java
+  s_a4496404aab045::t_8497816663be16 15
+  s_a4496404aab045::t_aee64acc2949bd 1-14
+src/main/java/com/cobre/eventnotifications/application/port/NotificationRepository.java
+  s_a4496404aab045::t_8497816663be16 28
+  s_a4496404aab045::t_3b544191bc7169 1-27
+src/main/java/com/cobre/eventnotifications/application/usecase/DeliverNotification.java
+  s_a4496404aab045::t_b5a6195d2a8edb 1-76
+  s_a4496404aab045::t_8497816663be16 77
+src/main/java/com/cobre/eventnotifications/application/exception/NotificationNotFoundException.java
+  s_a4496404aab045::t_8497816663be16 11
+  s_a4496404aab045::t_6c3a6796f5689b 1-10
+src/main/java/com/cobre/eventnotifications/application/port/SubscriptionRepository.java
+  s_a4496404aab045::t_8497816663be16 15
+  s_a4496404aab045::t_a4b2d5a2ad7374 1-14
+src/main/java/com/cobre/eventnotifications/application/usecase/GetNotification.java
+  s_a4496404aab045::t_53fcf9b1ed6ab1 1-19,21
+  s_a4496404aab045::t_8497816663be16 20,22
+src/main/java/com/cobre/eventnotifications/application/usecase/ListNotifications.java
+  s_a4496404aab045::t_8497816663be16 20
+  s_a4496404aab045::t_ea89fb42c40308 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "13ad3290b56ee74f4fc66c856c6623566de2c1e3",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
