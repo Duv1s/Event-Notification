@@ -1,0 +1,40 @@
+src/test/java/com/cobre/eventnotifications/domain/DeliveryStatusTest.java
+  s_a4496404aab045::t_cafc5c0076b9d0 40
+  s_a4496404aab045::t_1536907468db59 1-39
+src/test/java/com/cobre/eventnotifications/domain/NotificationTest.java
+  s_a4496404aab045::t_24923b15f1f010 1-153,155-169
+  s_a4496404aab045::t_cafc5c0076b9d0 154,170
+src/test/java/com/cobre/eventnotifications/domain/DeliveryAttemptTest.java
+  s_a4496404aab045::t_247bf93cd9b38f 1-49
+  s_a4496404aab045::t_cafc5c0076b9d0 50
+src/test/java/com/cobre/eventnotifications/domain/ValueObjectsTest.java
+  s_a4496404aab045::t_4a715687760a1a 1-31
+  s_a4496404aab045::t_cafc5c0076b9d0 32
+src/test/java/com/cobre/eventnotifications/domain/SubscriptionTest.java
+  s_a4496404aab045::t_210e9457f82011 1-29,32-47,52-64
+  s_a4496404aab045::t_cafc5c0076b9d0 30-31,48-51,65
+src/test/java/com/cobre/eventnotifications/domain/WebhookUrlTest.java
+  s_a4496404aab045::t_1ab7dae39afa46 1-39
+  s_a4496404aab045::t_cafc5c0076b9d0 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "187ac3898fd7367563c87f61cbc51d02443a3537",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
