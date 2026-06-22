@@ -1,0 +1,46 @@
+src/main/java/com/cobre/eventnotifications/domain/package-info.java
+  s_a4496404aab045::t_d97cd61b1ccd35 8
+  s_a4496404aab045::t_7912b8b5168737 1-7
+src/main/java/com/cobre/eventnotifications/application/port/package-info.java
+  s_a4496404aab045::t_39e1b6181c065c 1-7
+  s_a4496404aab045::t_d97cd61b1ccd35 8
+src/main/java/com/cobre/eventnotifications/application/usecase/package-info.java
+  s_a4496404aab045::t_b4ce6d7dd3a310 1-4
+  s_a4496404aab045::t_d97cd61b1ccd35 5
+src/main/java/com/cobre/eventnotifications/infrastructure/webhook/package-info.java
+  s_a4496404aab045::t_d97cd61b1ccd35 2
+  s_a4496404aab045::t_01380b371beca8 1
+src/main/java/com/cobre/eventnotifications/infrastructure/config/package-info.java
+  s_a4496404aab045::t_d97cd61b1ccd35 2
+  s_a4496404aab045::t_8276643e662254 1
+src/main/java/com/cobre/eventnotifications/infrastructure/web/package-info.java
+  s_a4496404aab045::t_d97cd61b1ccd35 2
+  s_a4496404aab045::t_e72937e336e61f 1
+src/main/java/com/cobre/eventnotifications/infrastructure/persistence/package-info.java
+  s_a4496404aab045::t_46e681f77bf689 1
+  s_a4496404aab045::t_d97cd61b1ccd35 2
+src/main/java/com/cobre/eventnotifications/EventNotificationsApplication.java
+  s_a4496404aab045::t_d97cd61b1ccd35 12
+  s_a4496404aab045::t_6ad50b30aaf1dc 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "046a7ba535a4875005d23d5f82ef989d462a17a8",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
