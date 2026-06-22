@@ -1,0 +1,28 @@
+src/test/java/com/cobre/eventnotifications/infrastructure/persistence/SeedLoaderTest.java
+  s_a4496404aab045::t_939a0b96182aec 1-61
+  s_a4496404aab045::t_b723ecd98d139a 62
+src/test/java/com/cobre/eventnotifications/infrastructure/persistence/InMemoryNotificationRepositoryTest.java
+  s_a4496404aab045::t_18d7a10e4fb525 1-160
+  s_a4496404aab045::t_b723ecd98d139a 161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "00531f6471ef813543a2ccb0043b5bd87ce556c9",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
