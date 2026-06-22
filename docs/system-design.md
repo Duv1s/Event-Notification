@@ -381,6 +381,16 @@ stream behind it. This is precisely why the contract is **at-least-once with no 
 rather than by arrival order. The per-partition ordering mentioned in section 9.1 is therefore a
 best-effort happy-path property, not a guarantee.
 
+**Reference-implementation limitation — `RETRYING` is a dead-end in the demo.** When the in-process
+retries are exhausted on a *retryable* failure, the notification transitions to `RETRYING`
+(`IN_PROGRESS` publicly). This is correct for the two-scale model: in production the spaced retry
+would later advance it to `COMPLETED`, or after the 24 h window to `FAILED` → DLQ. That spaced retry
+is **design-only**, so in the reference implementation a persistently-retryable delivery stays in
+`RETRYING` — nothing advances it, and `replay` requires `FAILED`. For a satisfying happy-path demo,
+point a subscription at a reachable **public HTTPS** endpoint (the SSRF guard blocks loopback/private
+hosts, so a *local* endpoint will not work) by overriding `SUBSCRIPTIONS_SEED` with a subscriptions
+file whose `url` is deliverable; the bundled seed URLs are intentionally non-resolving placeholders.
+
 ### 5.5 Failure isolation
 
 - **Circuit breaker per destination** (per subscription/host), never global — a global breaker would
