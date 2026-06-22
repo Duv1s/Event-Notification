@@ -24,6 +24,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-restclient'
+    // Apache HttpClient 5 backs RestClient: connection pooling, explicit TLS config and no redirect following.
+    implementation 'org.apache.httpcomponents.client5:httpclient5'
 
     // --- Security (OAuth2 resource server) ---
     implementation 'org.springframework.boot:spring-boot-starter-security'
