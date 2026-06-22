@@ -1,0 +1,28 @@
+src/test/java/com/cobre/eventnotifications/infrastructure/webhook/SsrfGuardTest.java
+  s_a4496404aab045::t_6abf1c7f12fff0 60
+  s_a4496404aab045::t_4ff694c0771200 1-59
+src/test/java/com/cobre/eventnotifications/infrastructure/webhook/ResilientWebhookClientTest.java
+  s_a4496404aab045::t_709b744e0afb89 1-143,146-150,153-201,204-206,209-270
+  s_a4496404aab045::t_6abf1c7f12fff0 144-145,151-152,202-203,207-208,271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "28caa3a68df938d09b433a417e5ef03ed03fa573",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
