@@ -1,0 +1,34 @@
+src/test/java/com/cobre/eventnotifications/infrastructure/web/PublicDeliveryStatusTest.java
+  s_a4496404aab045::t_868e130c2ccff1 26
+  s_a4496404aab045::t_58a977d5cf9b73 1-25
+src/test/java/com/cobre/eventnotifications/infrastructure/web/NotificationControllerTest.java
+  s_a4496404aab045::t_7dfc2dd03f16f2 1-38,40-188,191-203,206-215,218-220
+  s_a4496404aab045::t_868e130c2ccff1 189-190,204-205,216-217,221
+  s_a4496404aab045::t_184fb67e8caa48 39
+src/test/java/com/cobre/eventnotifications/infrastructure/web/CursorCodecTest.java
+  s_a4496404aab045::t_2ff7f37d897041 1-27,30-31
+  s_a4496404aab045::t_868e130c2ccff1 28-29,32
+build.gradle
+  s_a4496404aab045::t_4e95fdd9e4c22e 52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "a1244ed36e6bb837650f730bf5078d633b303f4f",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
