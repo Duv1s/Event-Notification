@@ -6,9 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.cobre.eventnotifications.application.port.DeliveryNotificationLookup;
+import com.cobre.eventnotifications.application.port.DeliveryNotificationStore;
 import com.cobre.eventnotifications.application.port.DeliveryOutcome;
-import com.cobre.eventnotifications.application.port.NotificationRepository;
 import com.cobre.eventnotifications.application.port.SubscriptionRepository;
 import com.cobre.eventnotifications.application.port.WebhookClient;
 import com.cobre.eventnotifications.domain.DeliveryAttempt;
@@ -24,17 +23,15 @@ class DeliverNotificationTest {
 
     private static final Instant CLOCK_INSTANT = Instant.parse("2024-03-15T10:00:00Z");
 
-    private final DeliveryNotificationLookup lookup = mock(DeliveryNotificationLookup.class);
-    private final NotificationRepository notifications = mock(NotificationRepository.class);
+    private final DeliveryNotificationStore store = mock(DeliveryNotificationStore.class);
     private final SubscriptionRepository subscriptions = mock(SubscriptionRepository.class);
     private final WebhookClient webhookClient = mock(WebhookClient.class);
     private final Clock clock = Clock.fixed(CLOCK_INSTANT, ZoneOffset.UTC);
-    private final DeliverNotification useCase =
-            new DeliverNotification(lookup, notifications, subscriptions, webhookClient, clock);
+    private final DeliverNotification useCase = new DeliverNotification(store, subscriptions, webhookClient, clock);
 
     private Notification arrangePendingDelivery() {
         Notification notification = Fixtures.pending();
-        when(lookup.findForDelivery(Fixtures.EVENT_ID)).thenReturn(Optional.of(notification));
+        when(store.findForDelivery(Fixtures.EVENT_ID)).thenReturn(Optional.of(notification));
         when(subscriptions.findById(Fixtures.SUBSCRIPTION_ID)).thenReturn(Optional.of(Fixtures.activeSubscription()));
         return notification;
     }
@@ -48,7 +45,7 @@ class DeliverNotificationTest {
 
         assertEquals(DeliveryStatus.COMPLETED, notification.deliveryStatus());
         assertEquals(1, notification.attemptCount());
-        verify(notifications).save(notification);
+        verify(store).save(notification);
     }
 
     @Test

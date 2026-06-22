@@ -1,7 +1,7 @@
 package com.cobre.eventnotifications.infrastructure.persistence;
 
 import com.cobre.eventnotifications.application.port.Cursor;
-import com.cobre.eventnotifications.application.port.DeliveryNotificationLookup;
+import com.cobre.eventnotifications.application.port.DeliveryNotificationStore;
 import com.cobre.eventnotifications.application.port.NotificationPage;
 import com.cobre.eventnotifications.application.port.NotificationQuery;
 import com.cobre.eventnotifications.application.port.NotificationRepository;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * replaces it with a JPA/PostgreSQL adapter behind the same ports.
  */
 @Repository
-public class InMemoryNotificationRepository implements NotificationRepository, DeliveryNotificationLookup {
+public class InMemoryNotificationRepository implements NotificationRepository, DeliveryNotificationStore {
 
     private static final int MAX_PAGE_SIZE = 100;
 

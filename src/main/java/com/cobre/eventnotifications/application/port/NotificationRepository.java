@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * Client-facing outbound port (List / Get / Replay). It never exposes a read without a {@link
  * ClientId}, so a cross-tenant read is structurally impossible from the API. The internal,
- * tenant-less delivery lookup lives in {@link DeliveryNotificationLookup}.
+ * tenant-less delivery read/write lives in {@link DeliveryNotificationStore}.
  */
 public interface NotificationRepository {
 
@@ -17,9 +17,6 @@ public interface NotificationRepository {
 
     /** Keyset-paginated, tenant-scoped search. */
     NotificationPage search(NotificationQuery query);
-
-    /** Persists state changes of an existing notification. */
-    void save(Notification notification);
 
     /**
      * Atomically claims a notification for replay: if (and only if) it currently belongs to {@code

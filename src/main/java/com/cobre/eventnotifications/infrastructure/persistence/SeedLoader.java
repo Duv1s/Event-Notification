@@ -1,6 +1,6 @@
 package com.cobre.eventnotifications.infrastructure.persistence;
 
-import com.cobre.eventnotifications.application.port.NotificationRepository;
+import com.cobre.eventnotifications.application.port.DeliveryNotificationStore;
 import com.cobre.eventnotifications.domain.ClientId;
 import com.cobre.eventnotifications.domain.DeliveryAttempt;
 import com.cobre.eventnotifications.domain.DeliveryResult;
@@ -42,13 +42,13 @@ public class SeedLoader implements ApplicationRunner {
             new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final InMemorySubscriptionRepository subscriptions;
-    private final NotificationRepository notifications;
+    private final DeliveryNotificationStore notifications;
     private final Resource subscriptionsResource;
     private final Resource notificationsResource;
 
     public SeedLoader(
             InMemorySubscriptionRepository subscriptions,
-            NotificationRepository notifications,
+            DeliveryNotificationStore notifications,
             @Value("${app.seed.subscriptions}") Resource subscriptionsResource,
             @Value("${app.seed.notifications}") Resource notificationsResource) {
         this.subscriptions = subscriptions;
