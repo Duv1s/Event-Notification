@@ -1,0 +1,40 @@
+src/test/java/com/cobre/eventnotifications/application/usecase/DeliverNotificationTest.java
+  h_46a69605d9e144 80
+  s_a4496404aab045::t_b3ba004a987bc3 1-79,81-84
+  s_a4496404aab045::t_8497816663be16 85
+src/test/java/com/cobre/eventnotifications/application/usecase/GetNotificationTest.java
+  s_a4496404aab045::t_8497816663be16 33,35
+  s_a4496404aab045::t_81ec38ee4effe2 1-32,34
+src/test/java/com/cobre/eventnotifications/application/usecase/ListNotificationsTest.java
+  s_a4496404aab045::t_6db33521f4276d 23
+  s_a4496404aab045::t_d08e7ddb6a3741 1-21,24-28
+  s_a4496404aab045::t_96ddc7d132443b 22
+  s_a4496404aab045::t_8497816663be16 29
+src/test/java/com/cobre/eventnotifications/application/usecase/Fixtures.java
+  s_a4496404aab045::t_be43d34e087013 1-40,43-46,49-57
+  s_a4496404aab045::t_8497816663be16 41-42,47-48,58
+src/test/java/com/cobre/eventnotifications/application/usecase/ReplayNotificationTest.java
+  s_a4496404aab045::t_8497816663be16 50,88
+  s_a4496404aab045::t_27e09fcee4a69f 1-49,51-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "c61af78b462923e4e30dfa820903fea843c3b10c",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
