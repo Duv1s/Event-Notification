@@ -1,0 +1,26 @@
+src/main/java/com/cobre/eventnotifications/infrastructure/web/RateLimitInterceptor.java
+  s_a4496404aab045::t_26ea631a6efabb 70-72,74
+build.gradle
+  s_a4496404aab045::t_40abd125e73e56 77-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "39bf454db7dc08ec6ef31237cd41a59a54a3a892",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
