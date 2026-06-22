@@ -1,0 +1,28 @@
+src/main/resources/application.yml
+  s_a4496404aab045::t_2745b08a61cce1 1-35
+src/main/resources/notification_events.json
+  s_a4496404aab045::t_85ab5847b2c2a8 1-84
+src/main/resources/subscriptions.json
+  s_a4496404aab045::t_a9870b9977f77b 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "0d2dec4ccaa49d08bead0218f8c06b84955bd090",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
