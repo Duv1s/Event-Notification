@@ -45,6 +45,15 @@ public class GlobalExceptionHandler {
         return problem(HttpStatus.BAD_REQUEST, "Invalid request", ex.getMessage(), "INVALID_REQUEST", request);
     }
 
+    /**
+     * Catches domain value-object / query validation ({@link IllegalArgumentException}) that surfaces
+     * while building domain types from untrusted input (e.g. occurred_from not before occurred_to).
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ProblemDetail handleIllegalArgument(IllegalArgumentException ex, HttpServletRequest request) {
+        return problem(HttpStatus.BAD_REQUEST, "Invalid request", ex.getMessage(), "INVALID_REQUEST", request);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ProblemDetail handleConstraintViolation(ConstraintViolationException ex, HttpServletRequest request) {
         return problem(

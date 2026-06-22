@@ -162,6 +162,18 @@ class NotificationControllerTest {
     }
 
     @Test
+    void rejectsOccurredFromNotBeforeOccurredTo() throws Exception {
+        // Two valid instants in the wrong order: the NotificationQuery invariant throws
+        // IllegalArgumentException, which must surface as 400 (not 500).
+        mockMvc.perform(get("/v1/notification_events")
+                        .param("occurred_from", "2024-03-15T10:00:00Z")
+                        .param("occurred_to", "2024-03-15T09:00:00Z")
+                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("INVALID_REQUEST"));
+    }
+
+    @Test
     void getReturnsDetailWithAttempts() throws Exception {
         when(getNotification.handle(any(), any())).thenReturn(notification(DeliveryStatus.FAILED));
 
