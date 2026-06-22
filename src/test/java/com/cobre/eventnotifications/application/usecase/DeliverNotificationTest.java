@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.cobre.eventnotifications.application.port.DeliveryNotificationLookup;
 import com.cobre.eventnotifications.application.port.DeliveryOutcome;
 import com.cobre.eventnotifications.application.port.NotificationRepository;
 import com.cobre.eventnotifications.application.port.SubscriptionRepository;
@@ -23,16 +24,17 @@ class DeliverNotificationTest {
 
     private static final Instant CLOCK_INSTANT = Instant.parse("2024-03-15T10:00:00Z");
 
+    private final DeliveryNotificationLookup lookup = mock(DeliveryNotificationLookup.class);
     private final NotificationRepository notifications = mock(NotificationRepository.class);
     private final SubscriptionRepository subscriptions = mock(SubscriptionRepository.class);
     private final WebhookClient webhookClient = mock(WebhookClient.class);
     private final Clock clock = Clock.fixed(CLOCK_INSTANT, ZoneOffset.UTC);
     private final DeliverNotification useCase =
-            new DeliverNotification(notifications, subscriptions, webhookClient, clock);
+            new DeliverNotification(lookup, notifications, subscriptions, webhookClient, clock);
 
     private Notification arrangePendingDelivery() {
         Notification notification = Fixtures.pending();
-        when(notifications.findForDelivery(Fixtures.EVENT_ID)).thenReturn(Optional.of(notification));
+        when(lookup.findForDelivery(Fixtures.EVENT_ID)).thenReturn(Optional.of(notification));
         when(subscriptions.findById(Fixtures.SUBSCRIPTION_ID)).thenReturn(Optional.of(Fixtures.activeSubscription()));
         return notification;
     }

@@ -17,16 +17,14 @@ import java.util.Objects;
  *
  * <ol>
  *   <li>load tenant-scoped (404 if missing);
- *   <li>claim it with a FAILED -&gt; DELIVERING transition (409 if not FAILED);
- *   <li>re-resolve the current subscription, which must still be ACTIVE and still cover the event type
- *       (409 otherwise);
- *   <li>persist the claim and trigger asynchronous delivery.
+ *   <li>it must be replayable, i.e. FAILED (409 otherwise);
+ *   <li>the current subscription must still be ACTIVE and still cover the event type (409 otherwise);
+ *   <li>atomically claim FAILED -&gt; DELIVERING and, only if the claim wins, trigger delivery.
  * </ol>
  *
- * <p>The true atomicity of the claim against concurrent double-replay is provided by the repository
- * adapter (e.g. {@code ConcurrentHashMap.compute}); this use case expresses the guarded transition.
- * If the subscription check fails after the in-memory claim, nothing is persisted, so the stored
- * notification stays FAILED.
+ * <p>The atomic claim is the LAST step, so if any earlier check fails nothing is mutated and the
+ * notification stays FAILED. A lost claim (concurrent replay won, or the status changed) is reported
+ * as a 409.
  */
 public class ReplayNotification {
 
@@ -49,7 +47,6 @@ public class ReplayNotification {
         if (!notification.canBeReplayed()) {
             throw new ReplayNotAllowedException(id, notification.deliveryStatus());
         }
-        notification.replay();
 
         Subscription subscription = subscriptions
                 .findById(notification.subscriptionId())
@@ -58,7 +55,9 @@ public class ReplayNotification {
             throw new SubscriptionNotEligibleException(id, notification.subscriptionId());
         }
 
-        notifications.save(notification);
+        if (!notifications.claimForReplay(id, clientId)) {
+            throw new ReplayNotAllowedException(id, notification.deliveryStatus());
+        }
         dispatcher.dispatch(id);
     }
 }

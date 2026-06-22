@@ -1,6 +1,5 @@
 package com.cobre.eventnotifications.application.usecase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -14,9 +13,7 @@ import com.cobre.eventnotifications.application.exception.SubscriptionNotEligibl
 import com.cobre.eventnotifications.application.port.DeliveryDispatcher;
 import com.cobre.eventnotifications.application.port.NotificationRepository;
 import com.cobre.eventnotifications.application.port.SubscriptionRepository;
-import com.cobre.eventnotifications.domain.DeliveryStatus;
 import com.cobre.eventnotifications.domain.EventTypeFilter;
-import com.cobre.eventnotifications.domain.Notification;
 import com.cobre.eventnotifications.domain.SubscriptionState;
 import java.util.List;
 import java.util.Optional;
@@ -30,25 +27,25 @@ class ReplayNotificationTest {
     private final ReplayNotification useCase = new ReplayNotification(notifications, subscriptions, dispatcher);
 
     @Test
-    void happyPathClaimsSavesAndDispatches() {
-        Notification notification = Fixtures.failed();
+    void happyPathClaimsAndDispatches() {
         when(notifications.findByIdAndClientId(Fixtures.EVENT_ID, Fixtures.CLIENT_ID))
-                .thenReturn(Optional.of(notification));
+                .thenReturn(Optional.of(Fixtures.failed()));
         when(subscriptions.findById(Fixtures.SUBSCRIPTION_ID)).thenReturn(Optional.of(Fixtures.activeSubscription()));
+        when(notifications.claimForReplay(Fixtures.EVENT_ID, Fixtures.CLIENT_ID))
+                .thenReturn(true);
 
         useCase.handle(Fixtures.EVENT_ID, Fixtures.CLIENT_ID);
 
-        assertEquals(DeliveryStatus.DELIVERING, notification.deliveryStatus());
-        verify(notifications).save(notification);
+        verify(notifications).claimForReplay(Fixtures.EVENT_ID, Fixtures.CLIENT_ID);
         verify(dispatcher).dispatch(Fixtures.EVENT_ID);
     }
 
     @Test
-    void throwsNotFoundAndDoesNotDispatch() {
+    void throwsNotFoundAndDoesNotClaim() {
         when(notifications.findByIdAndClientId(any(), any())).thenReturn(Optional.empty());
 
         assertThrows(NotificationNotFoundException.class, () -> useCase.handle(Fixtures.EVENT_ID, Fixtures.CLIENT_ID));
-        verify(notifications, never()).save(any());
+        verify(notifications, never()).claimForReplay(any(), any());
         verify(dispatcher, never()).dispatch(any());
     }
 
@@ -57,7 +54,7 @@ class ReplayNotificationTest {
         when(notifications.findByIdAndClientId(any(), any())).thenReturn(Optional.of(Fixtures.completed()));
 
         assertThrows(ReplayNotAllowedException.class, () -> useCase.handle(Fixtures.EVENT_ID, Fixtures.CLIENT_ID));
-        verify(notifications, never()).save(any());
+        verify(notifications, never()).claimForReplay(any(), any());
         verify(dispatcher, never()).dispatch(any());
     }
 
@@ -69,7 +66,7 @@ class ReplayNotificationTest {
 
         assertThrows(
                 SubscriptionNotEligibleException.class, () -> useCase.handle(Fixtures.EVENT_ID, Fixtures.CLIENT_ID));
-        verify(notifications, never()).save(any());
+        verify(notifications, never()).claimForReplay(any(), any());
         verify(dispatcher, never()).dispatch(any());
     }
 
@@ -82,7 +79,17 @@ class ReplayNotificationTest {
 
         assertThrows(
                 SubscriptionNotEligibleException.class, () -> useCase.handle(Fixtures.EVENT_ID, Fixtures.CLIENT_ID));
-        verify(notifications, never()).save(any());
+        verify(notifications, never()).claimForReplay(any(), any());
+        verify(dispatcher, never()).dispatch(any());
+    }
+
+    @Test
+    void throwsConflictWhenClaimLosesTheRace() {
+        when(notifications.findByIdAndClientId(any(), any())).thenReturn(Optional.of(Fixtures.failed()));
+        when(subscriptions.findById(any())).thenReturn(Optional.of(Fixtures.activeSubscription()));
+        when(notifications.claimForReplay(any(), any())).thenReturn(false);
+
+        assertThrows(ReplayNotAllowedException.class, () -> useCase.handle(Fixtures.EVENT_ID, Fixtures.CLIENT_ID));
         verify(dispatcher, never()).dispatch(any());
     }
 }

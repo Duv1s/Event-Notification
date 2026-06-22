@@ -5,24 +5,27 @@ import com.cobre.eventnotifications.domain.EventId;
 import com.cobre.eventnotifications.domain.Notification;
 import java.util.Optional;
 
-/** Outbound port for reading and persisting notifications. */
+/**
+ * Client-facing outbound port (List / Get / Replay). It never exposes a read without a {@link
+ * ClientId}, so a cross-tenant read is structurally impossible from the API. The internal,
+ * tenant-less delivery lookup lives in {@link DeliveryNotificationLookup}.
+ */
 public interface NotificationRepository {
 
-    /**
-     * Client-facing lookup. ALWAYS tenant-scoped: there is intentionally no {@code findById} without a
-     * {@link ClientId}, so a cross-tenant read is structurally impossible from the API.
-     */
+    /** Tenant-scoped lookup. */
     Optional<Notification> findByIdAndClientId(EventId id, ClientId clientId);
-
-    /**
-     * Internal, system-scoped lookup used ONLY by the delivery engine (never reachable from the client
-     * API). The delivery worker is a trusted internal actor and does not carry a client identity.
-     */
-    Optional<Notification> findForDelivery(EventId id);
 
     /** Keyset-paginated, tenant-scoped search. */
     NotificationPage search(NotificationQuery query);
 
     /** Persists state changes of an existing notification. */
     void save(Notification notification);
+
+    /**
+     * Atomically claims a notification for replay: if (and only if) it currently belongs to {@code
+     * clientId} and is in {@code FAILED}, it transitions to {@code DELIVERING} and returns {@code
+     * true}; otherwise it leaves the notification untouched and returns {@code false}. This is the
+     * atomic guard against concurrent double-replay.
+     */
+    boolean claimForReplay(EventId id, ClientId clientId);
 }
