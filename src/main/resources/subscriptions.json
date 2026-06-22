@@ -1,0 +1,28 @@
+{
+  "subscriptions": [
+    {
+      "subscription_id": "SUB001",
+      "client_id": "CLIENT001",
+      "event_type_filter": "all",
+      "url": "https://client001.demo.not-for-production.local/webhooks/notifications",
+      "hmac_secret": "demo-secret-client001-not-for-production",
+      "state": "ACTIVE"
+    },
+    {
+      "subscription_id": "SUB002",
+      "client_id": "CLIENT002",
+      "event_type_filter": "all",
+      "url": "https://client002.demo.not-for-production.local/webhooks/notifications",
+      "hmac_secret": "demo-secret-client002-not-for-production",
+      "state": "ACTIVE"
+    },
+    {
+      "subscription_id": "SUB003",
+      "client_id": "CLIENT003",
+      "event_type_filter": "all",
+      "url": "https://client003.demo.not-for-production.local/webhooks/notifications",
+      "hmac_secret": "demo-secret-client003-not-for-production",
+      "state": "ACTIVE"
+    }
+  ]
+}

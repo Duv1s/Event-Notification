@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: event-notifications
+  # OAuth2 resource-server validation is wired in the security phase. The env-override pattern below
+  # shows how the issuer is configured in production; it is left unset here so the app boots without
+  # an external IdP.
+  # security:
+  #   oauth2:
+  #     resourceserver:
+  #       jwt:
+  #         issuer-uri: ${OAUTH2_ISSUER_URI:}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+# Application configuration. Every default is a DEMO value, overridden per environment.
+# In production these come from environment variables / a secrets manager, never from this file.
+app:
+  webhook:
+    hmac-secret: ${WEBHOOK_HMAC_SECRET:demo-secret-not-for-production}
+    connect-timeout: ${WEBHOOK_CONNECT_TIMEOUT:2s}
+    read-timeout: ${WEBHOOK_READ_TIMEOUT:5s}
+  seed:
+    notifications: ${NOTIFICATIONS_SEED:classpath:notification_events.json}
+    subscriptions: ${SUBSCRIPTIONS_SEED:classpath:subscriptions.json}
