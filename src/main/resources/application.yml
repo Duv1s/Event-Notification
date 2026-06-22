@@ -1,14 +1,6 @@
 spring:
   application:
     name: event-notifications
-  # OAuth2 resource-server validation is wired in the security phase. The env-override pattern below
-  # shows how the issuer is configured in production; it is left unset here so the app boots without
-  # an external IdP.
-  # security:
-  #   oauth2:
-  #     resourceserver:
-  #       jwt:
-  #         issuer-uri: ${OAUTH2_ISSUER_URI:}
 
 server:
   port: ${SERVER_PORT:8080}
@@ -26,6 +18,18 @@ management:
 # Application configuration. Every default is a DEMO value, overridden per environment.
 # In production these come from environment variables / a secrets manager, never from this file.
 app:
+  security:
+    jwt:
+      # Demo defaults: the resource server verifies against a LOCAL JWKS (test public key on the
+      # classpath). In production set OAUTH2_JWK_SET_URI to the IdP's JWKS endpoint (it takes
+      # precedence) and OAUTH2_ISSUER / OAUTH2_AUDIENCE to the real values.
+      issuer: ${OAUTH2_ISSUER:demo-issuer}
+      audience: ${OAUTH2_AUDIENCE:event-notifications}
+      jwks: ${OAUTH2_JWKS:classpath:jwt/demo-jwks.json}
+      jwk-set-uri: ${OAUTH2_JWK_SET_URI:}
+  ratelimit:
+    read-per-minute: ${RATELIMIT_READ_PER_MINUTE:100}
+    replay-per-minute: ${RATELIMIT_REPLAY_PER_MINUTE:10}
   webhook:
     hmac-secret: ${WEBHOOK_HMAC_SECRET:demo-secret-not-for-production}
     connect-timeout: ${WEBHOOK_CONNECT_TIMEOUT:2s}
