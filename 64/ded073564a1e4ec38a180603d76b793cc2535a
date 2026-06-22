@@ -1,0 +1,39 @@
+src/main/java/com/cobre/eventnotifications/application/port/DeliveryNotificationStore.java
+  s_a4496404aab045::t_c4022bf65f28d9 1-17
+  s_a4496404aab045::t_7e9cabda30a179 18
+src/test/java/com/cobre/eventnotifications/application/usecase/DeliverNotificationTest.java
+  s_a4496404aab045::t_51fc7fadb131da 9,26,34,48
+  s_a4496404aab045::t_7e9cabda30a179 30
+src/main/java/com/cobre/eventnotifications/application/port/NotificationRepository.java
+  s_a4496404aab045::t_1716a6522a0d44 11
+src/main/java/com/cobre/eventnotifications/infrastructure/persistence/InMemoryNotificationRepository.java
+  s_a4496404aab045::t_d2f4156d22ef08 25
+  s_a4496404aab045::t_6c71495d0580a4 4
+src/main/java/com/cobre/eventnotifications/application/usecase/DeliverNotification.java
+  s_a4496404aab045::t_ae1eefb4e11a90 5,21-22,29,35,39,68
+  s_a4496404aab045::t_7e9cabda30a179 46
+src/main/java/com/cobre/eventnotifications/infrastructure/persistence/SeedLoader.java
+  s_a4496404aab045::t_dee87b969360d3 45,51
+  s_a4496404aab045::t_ebf5b333dbf066 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "64ded073564a1e4ec38a180603d76b793cc2535a",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
