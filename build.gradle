@@ -74,4 +74,7 @@ spotless {
 
 tasks.named('test') {
     useJUnitPlatform()
+    // spring-security-test mutates final fields reflectively; allow it so JDK 26 does not warn
+    // (and to stay forward-compatible once final-field mutation is blocked by default).
+    jvmArgs('--enable-final-field-mutation=ALL-UNNAMED')
 }
