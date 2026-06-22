@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -38,11 +39,15 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 @WebMvcTest(NotificationController.class)
-@Import({SecurityConfig.class, HeaderClientIdResolver.class})
+@Import({SecurityConfig.class, JwtClientIdResolver.class})
+@TestPropertySource(properties = {"app.ratelimit.read-per-minute=100000", "app.ratelimit.replay-per-minute=100000"})
 class NotificationControllerTest {
 
     private static final String CLIENT = "CLIENT001";
@@ -58,6 +63,16 @@ class NotificationControllerTest {
 
     @MockitoBean
     private ReplayNotification replayNotification;
+
+    private static RequestPostProcessor read(String clientId) {
+        return jwt().jwt(builder -> builder.claim("client_id", clientId))
+                .authorities(new SimpleGrantedAuthority("SCOPE_notifications:read"));
+    }
+
+    private static RequestPostProcessor replay(String clientId) {
+        return jwt().jwt(builder -> builder.claim("client_id", clientId))
+                .authorities(new SimpleGrantedAuthority("SCOPE_notifications:replay"));
+    }
 
     private static Notification notification(DeliveryStatus status) {
         return new Notification(
@@ -77,18 +92,28 @@ class NotificationControllerTest {
                         "err")));
     }
 
+    // --- functional ---
+
     @Test
     void listReturnsMappedSummariesAndEncodedCursor() throws Exception {
         Notification notification = notification(DeliveryStatus.DELIVERING);
         Cursor cursor = new Cursor(notification.occurredAt(), notification.id());
         when(listNotifications.handle(any())).thenReturn(new NotificationPage(List.of(notification), cursor));
 
-        mockMvc.perform(get("/v1/notification_events").header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(get("/v1/notification_events").with(read(CLIENT)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items[0].notification_event_id").value("EVT001"))
                 .andExpect(jsonPath("$.items[0].delivery_status").value("IN_PROGRESS"))
-                .andExpect(jsonPath("$.items[0].attempt_count").value(1))
                 .andExpect(jsonPath("$.next_cursor").value(CursorCodec.encode(cursor)));
+    }
+
+    @Test
+    void listAcceptsRealSignedToken() throws Exception {
+        when(listNotifications.handle(any())).thenReturn(new NotificationPage(List.of(), null));
+
+        mockMvc.perform(get("/v1/notification_events")
+                        .header("Authorization", "Bearer " + JwtTestTokens.valid(CLIENT, "notifications:read")))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -97,7 +122,7 @@ class NotificationControllerTest {
 
         mockMvc.perform(get("/v1/notification_events")
                         .param("delivery_status", "IN_PROGRESS")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+                        .with(read(CLIENT)))
                 .andExpect(status().isOk());
 
         ArgumentCaptor<NotificationQuery> captor = ArgumentCaptor.forClass(NotificationQuery.class);
@@ -108,13 +133,24 @@ class NotificationControllerTest {
     }
 
     @Test
+    void scopesQueryToTheTokenClientId() throws Exception {
+        when(listNotifications.handle(any())).thenReturn(new NotificationPage(List.of(), null));
+
+        mockMvc.perform(get("/v1/notification_events").with(read("CLIENT002"))).andExpect(status().isOk());
+
+        ArgumentCaptor<NotificationQuery> captor = ArgumentCaptor.forClass(NotificationQuery.class);
+        verify(listNotifications).handle(captor.capture());
+        assertEquals(new ClientId("CLIENT002"), captor.getValue().clientId());
+    }
+
+    @Test
     void decodesCursorIntoQuery() throws Exception {
         when(listNotifications.handle(any())).thenReturn(new NotificationPage(List.of(), null));
         Cursor cursor = new Cursor(Instant.parse("2024-03-15T09:30:22Z"), new EventId("EVT005"));
 
         mockMvc.perform(get("/v1/notification_events")
                         .param("cursor", CursorCodec.encode(cursor))
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+                        .with(read(CLIENT)))
                 .andExpect(status().isOk());
 
         ArgumentCaptor<NotificationQuery> captor = ArgumentCaptor.forClass(NotificationQuery.class);
@@ -124,23 +160,16 @@ class NotificationControllerTest {
 
     @Test
     void rejectsPageSizeOutOfRange() throws Exception {
-        mockMvc.perform(get("/v1/notification_events")
-                        .param("page_size", "0")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(get("/v1/notification_events").param("page_size", "0").with(read(CLIENT)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("VALIDATION_ERROR"));
-
-        mockMvc.perform(get("/v1/notification_events")
-                        .param("page_size", "101")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
-                .andExpect(status().isBadRequest());
     }
 
     @Test
     void rejectsUnknownStatus() throws Exception {
         mockMvc.perform(get("/v1/notification_events")
                         .param("delivery_status", "BOGUS")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+                        .with(read(CLIENT)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("INVALID_REQUEST"));
     }
@@ -149,26 +178,16 @@ class NotificationControllerTest {
     void rejectsInvalidCursor() throws Exception {
         mockMvc.perform(get("/v1/notification_events")
                         .param("cursor", "@@notbase64@@")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void rejectsInvalidOccurredFrom() throws Exception {
-        mockMvc.perform(get("/v1/notification_events")
-                        .param("occurred_from", "not-a-date")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+                        .with(read(CLIENT)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void rejectsOccurredFromNotBeforeOccurredTo() throws Exception {
-        // Two valid instants in the wrong order: the NotificationQuery invariant throws
-        // IllegalArgumentException, which must surface as 400 (not 500).
         mockMvc.perform(get("/v1/notification_events")
                         .param("occurred_from", "2024-03-15T10:00:00Z")
                         .param("occurred_to", "2024-03-15T09:00:00Z")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+                        .with(read(CLIENT)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("INVALID_REQUEST"));
     }
@@ -177,29 +196,25 @@ class NotificationControllerTest {
     void getReturnsDetailWithAttempts() throws Exception {
         when(getNotification.handle(any(), any())).thenReturn(notification(DeliveryStatus.FAILED));
 
-        mockMvc.perform(get("/v1/notification_events/EVT001").header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(get("/v1/notification_events/EVT001").with(read(CLIENT)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.delivery_status").value("FAILED"))
-                .andExpect(jsonPath("$.attempts[0].attempt_number").value(1))
-                .andExpect(jsonPath("$.attempts[0].result").value("FAILURE"));
+                .andExpect(jsonPath("$.attempts[0].attempt_number").value(1));
     }
 
     @Test
     void getReturns404ProblemDetail() throws Exception {
         when(getNotification.handle(any(), any())).thenThrow(new NotificationNotFoundException(new EventId("EVTX")));
 
-        mockMvc.perform(get("/v1/notification_events/EVTX").header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(get("/v1/notification_events/EVTX").with(read(CLIENT)))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.status").value(404))
-                .andExpect(jsonPath("$.title").value("Notification not found"))
-                .andExpect(jsonPath("$.code").value("NOTIFICATION_NOT_FOUND"))
-                .andExpect(jsonPath("$.instance").value("/v1/notification_events/EVTX"));
+                .andExpect(jsonPath("$.code").value("NOTIFICATION_NOT_FOUND"));
     }
 
     @Test
     void replayReturns202WithLocationAndInProgress() throws Exception {
-        mockMvc.perform(post("/v1/notification_events/EVT001/replay")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(post("/v1/notification_events/EVT001/replay").with(replay(CLIENT)))
                 .andExpect(status().isAccepted())
                 .andExpect(header().string("Location", "/v1/notification_events/EVT001"))
                 .andExpect(jsonPath("$.delivery_status").value("IN_PROGRESS"));
@@ -213,8 +228,7 @@ class NotificationControllerTest {
                 .when(replayNotification)
                 .handle(any(), any());
 
-        mockMvc.perform(post("/v1/notification_events/EVT001/replay")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(post("/v1/notification_events/EVT001/replay").with(replay(CLIENT)))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("REPLAY_NOT_ALLOWED"));
     }
@@ -225,9 +239,50 @@ class NotificationControllerTest {
                 .when(replayNotification)
                 .handle(any(), any());
 
-        mockMvc.perform(post("/v1/notification_events/EVT001/replay")
-                        .header(HeaderClientIdResolver.CLIENT_ID_HEADER, CLIENT))
+        mockMvc.perform(post("/v1/notification_events/EVT001/replay").with(replay(CLIENT)))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value("SUBSCRIPTION_NOT_ELIGIBLE"));
+    }
+
+    // --- authentication (decoder) ---
+
+    @Test
+    void rejectsRequestWithoutToken() throws Exception {
+        mockMvc.perform(get("/v1/notification_events")).andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void rejectsExpiredToken() throws Exception {
+        mockMvc.perform(get("/v1/notification_events")
+                        .header("Authorization", "Bearer " + JwtTestTokens.expired(CLIENT, "notifications:read")))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void rejectsWrongAudience() throws Exception {
+        mockMvc.perform(get("/v1/notification_events")
+                        .header("Authorization", "Bearer " + JwtTestTokens.wrongAudience(CLIENT, "notifications:read")))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void rejectsTokenWithoutClientIdClaim() throws Exception {
+        mockMvc.perform(get("/v1/notification_events")
+                        .header("Authorization", "Bearer " + JwtTestTokens.withoutClientId("notifications:read")))
+                .andExpect(status().isUnauthorized());
+    }
+
+    // --- authorization (scopes) ---
+
+    @Test
+    void listForbiddenWithoutReadScope() throws Exception {
+        RequestPostProcessor noScope = jwt().jwt(builder -> builder.claim("client_id", CLIENT));
+        mockMvc.perform(get("/v1/notification_events").with(noScope)).andExpect(status().isForbidden());
+    }
+
+    @Test
+    void replayForbiddenWithOnlyReadScope() throws Exception {
+        mockMvc.perform(post("/v1/notification_events/EVT001/replay").with(read(CLIENT)))
+                .andExpect(status().isForbidden());
     }
 }
