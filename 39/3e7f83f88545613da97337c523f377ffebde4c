@@ -1,0 +1,28 @@
+src/test/java/com/cobre/eventnotifications/architecture/HexagonalArchitectureTest.java
+  s_a4496404aab045::t_d97cd61b1ccd35 13,37
+  s_a4496404aab045::t_03c3daa6fa98a6 1-12,14-36
+src/test/java/com/cobre/eventnotifications/EventNotificationsApplicationTests.java
+  s_a4496404aab045::t_de88edfcfbba3c 1-10
+  s_a4496404aab045::t_d97cd61b1ccd35 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "393e7f83f88545613da97337c523f377ffebde4c",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
