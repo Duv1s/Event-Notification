@@ -1,0 +1,68 @@
+src/main/java/com/cobre/eventnotifications/domain/EventId.java
+  s_a4496404aab045::t_8544481e5e48ff 1-15
+  s_a4496404aab045::t_cafc5c0076b9d0 16
+src/main/java/com/cobre/eventnotifications/domain/EventType.java
+  s_a4496404aab045::t_cafc5c0076b9d0 16
+  s_a4496404aab045::t_970e1e72c9f8b5 1-15
+src/main/java/com/cobre/eventnotifications/domain/Subscription.java
+  s_a4496404aab045::t_cafc5c0076b9d0 93
+  s_a4496404aab045::t_86a93b9bc6be0b 1-92
+src/main/java/com/cobre/eventnotifications/domain/DeliveryStatus.java
+  s_a4496404aab045::t_cafc5c0076b9d0 40
+  s_a4496404aab045::t_fa4a54699623fe 1-39
+src/main/java/com/cobre/eventnotifications/domain/EventTypeFilter.java
+  s_a4496404aab045::t_cafc5c0076b9d0 53
+  s_a4496404aab045::t_d2acb62b56ff2b 1-52
+src/main/java/com/cobre/eventnotifications/domain/SubscriptionState.java
+  s_a4496404aab045::t_bfdb2fc31fb574 1-7
+  s_a4496404aab045::t_cafc5c0076b9d0 8
+src/main/java/com/cobre/eventnotifications/domain/Notification.java
+  s_a4496404aab045::t_769d6eb6faa44e 1-191
+  s_a4496404aab045::t_cafc5c0076b9d0 192
+src/main/java/com/cobre/eventnotifications/domain/WebhookUrl.java
+  s_a4496404aab045::t_e573ba44070981 17-24
+  s_a4496404aab045::t_b28d4e972c66b9 1-16,25-40
+  s_a4496404aab045::t_5b99e195ba760b 41
+src/main/java/com/cobre/eventnotifications/domain/ClientId.java
+  s_a4496404aab045::t_fc542aa683620a 1-15
+  s_a4496404aab045::t_cafc5c0076b9d0 16
+src/main/java/com/cobre/eventnotifications/domain/DeliveryAttempt.java
+  s_a4496404aab045::t_0eeea29d243e1e 1-41
+  s_a4496404aab045::t_cafc5c0076b9d0 42
+src/main/java/com/cobre/eventnotifications/domain/DeliveryResult.java
+  s_a4496404aab045::t_ef467ac67025c4 1-6
+  s_a4496404aab045::t_cafc5c0076b9d0 7
+src/main/java/com/cobre/eventnotifications/domain/DomainException.java
+  s_a4496404aab045::t_608e8d0b24689c 1-8
+  s_a4496404aab045::t_cafc5c0076b9d0 9
+src/main/java/com/cobre/eventnotifications/domain/NotReplayableException.java
+  s_a4496404aab045::t_cafc5c0076b9d0 9
+  s_a4496404aab045::t_bfab71200d9860 1-8
+src/main/java/com/cobre/eventnotifications/domain/SubscriptionId.java
+  s_a4496404aab045::t_e9099c1eb85339 1-15
+  s_a4496404aab045::t_cafc5c0076b9d0 16
+src/main/java/com/cobre/eventnotifications/domain/InvalidStateTransitionException.java
+  s_a4496404aab045::t_cafc5c0076b9d0 9
+  s_a4496404aab045::t_34732bdcd7a9a4 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "8ec6c05f094e9c85caf0e3b69a774a435990dcb9",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
