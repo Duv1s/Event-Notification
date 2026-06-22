@@ -1,0 +1,36 @@
+docs/system-design.md
+  s_a4496404aab045::t_b88cc7141c4212 1-27,35-56,58-118,120-318,320-373,384-443,446-452,454-460,466-470,472-478,480-578,582-624,626-636,638-639,642-649,658-697,699-704
+  s_a4496404aab045::t_96cec8bc2f3213 374-383
+  s_a4496404aab045::t_1d9eb61cc1bd01 28-34,57,119,471
+  s_a4496404aab045::t_8a32e14e374043 453
+  s_a4496404aab045::t_6c8ef3e5386e98 479
+  s_a4496404aab045::t_96103ea9f09e9a 444-445
+  s_a4496404aab045::t_b93cd99a0d8631 319
+  s_a4496404aab045::t_b0637db3c87ab8 625
+  s_a4496404aab045::t_4af6ec9c8880f5 637,640-641
+  s_a4496404aab045::t_de8a151c9fc6a9 650-657
+  s_a4496404aab045::t_5f5e59f9096a6d 698
+  s_a4496404aab045::t_5c43a1bf362205 579-581
+  s_a4496404aab045::t_424c06c8eae538 461-465
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "31fe54b3dd8c0802d697ac6ac6d5ea928b11d2ff",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
