@@ -161,3 +161,10 @@ docker build -t event-notifications .   # multi-stage; requires Java 26 base ima
    endpoint is blocked by the SSRF guard).
 2. **Observability is deliberately minimal** (Actuator + a couple of metrics + JSON logs). The
    production stack (Prometheus/Grafana, OpenTelemetry, alerting) is described in the design doc only.
+## AI-assisted development
+
+This project was built with AI assistance, directed and reviewed by me through a generator–critic
+loop across nine review-gated phases. The approach, the architecture decisions I made, and the
+reviews that changed the code are written up in
+**[`docs/ai-assisted-process.md`](docs/ai-assisted-process.md)**, with the full sanitized session in
+[`docs/ai-session-transcript.md`](docs/ai-session-transcript.md).
