@@ -8,9 +8,9 @@ Built with **Java 26 + Spring Boot 4.1**, **hexagonal architecture**, OAuth2 res
 Resilience4j, and an in-memory reference adapter seeded from `notification_events.json`. It is
 vendor-neutral; placeholder hosts such as `api.cobre.example` are not real endpoints.
 
-- **Design (Task 1):** [`docs/system-design.md`](docs/system-design.md)
+- **Design:** [`docs/system-design.md`](docs/system-design.md)
 - **Decisions (ADRs):** [`docs/adr/`](docs/adr/)
-- **Security (Task 3 — OWASP):** [`docs/security.md`](docs/security.md)
+- **Security analysis (OWASP):** [`docs/security.md`](docs/security.md)
 
 ## Requirements
 
@@ -27,6 +27,10 @@ Starts on `http://localhost:8080` with **no setup**: at startup the seed (`notif
 + `subscriptions.json`) is loaded into a thread-safe in-memory store. Swagger UI is at
 `/swagger-ui.html`, the OpenAPI spec at `/v3/api-docs`.
 
+![Swagger UI listing the notification endpoints](docs/images/swagger-ui.png)
+
+*Swagger UI: the documented REST API (list, get-by-id, replay) ready to try from the browser.*
+
 ## Test
 
 ```bash
@@ -35,7 +39,17 @@ Starts on `http://localhost:8080` with **no setup**: at startup the seed (`notif
 ```
 
 Test coverage (JaCoCo) is generated automatically by `test`; open the HTML report at
-`build/reports/jacoco/test/html/index.html` (or run `./gradlew jacocoTestReport`).
+`build/reports/jacoco/test/html/index.html` (or run `./gradlew test jacocoTestReport`).
+
+![JaCoCo coverage report summary](docs/images/jacoco-coverage.png)
+
+*JaCoCo HTML report after a green `./gradlew test`: per-package instruction and branch coverage.*
+
+### Continuous integration
+
+Every push and pull request runs [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — `./gradlew build`
+(compile + tests + Spotless + ArchUnit) on `ubuntu-latest`, with the Java 26 toolchain auto-provisioned
+via Foojay. CodeQL ([`codeql.yml`](.github/workflows/codeql.yml)) adds SAST.
 
 ## Authenticate & call the API
 
@@ -75,6 +89,18 @@ curl -s -i -X POST -H "Authorization: Bearer $TOKEN2" \
 
 `delivery_status` filter values are the public states `PENDING | IN_PROGRESS | COMPLETED | FAILED`.
 
+![curl listing a tenant's notifications](docs/images/api-list-notifications.png)
+
+*`GET /v1/notification_events`: keyset-paginated list scoped to the caller's `client_id`.*
+
+![curl fetching one notification with its attempts](docs/images/api-get-notification.png)
+
+*`GET /v1/notification_events/{id}`: a single notification with its delivery-attempt history.*
+
+![curl replaying a failed notification](docs/images/api-replay.png)
+
+*`POST /v1/notification_events/{id}/replay`: replaying a `FAILED` notification returns `202 Accepted`.*
+
 ## Architecture
 
 Hexagonal (ports & adapters):
@@ -99,6 +125,10 @@ Intentionally minimal: Actuator `/actuator/health` (liveness/readiness), `/actua
 `/actuator/prometheus` (Micrometer). Delivery metrics (`webhook.deliveries`,
 `webhook.delivery.duration`) are tagged only by `outcome`/`event_type`; circuit-breaker metrics are
 published too. Logs are ECS-structured JSON with `trace_id`/`client_id`/`event_id` in the MDC and no PII.
+
+![/actuator/prometheus exposing delivery and circuit-breaker metrics](docs/images/actuator-prometheus-metrics.png)
+
+*`/actuator/prometheus`: delivery counters/timers and Resilience4j circuit-breaker gauges scraped by Micrometer.*
 
 ## Docker
 

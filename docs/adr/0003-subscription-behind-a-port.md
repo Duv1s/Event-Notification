@@ -9,7 +9,7 @@ a separate concern from delivering notifications.
 of scope and assumed pre-existing (seeded into an in-memory adapter from `subscriptions.json`).
 
 ## Alternatives considered
-- **Implement subscription CRUD here:** outside the challenge scope and conflates two bounded contexts.
+- **Implement subscription CRUD here:** out of scope for this service and conflates two bounded contexts.
 
 ## Consequences
 Replay and delivery resolve the *current* URL/secret/state by `subscription_id`. Production swaps the

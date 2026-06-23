@@ -1,13 +1,13 @@
 # System Design — Event Notifications
 
-> **Task 1 — System Design.** This document describes the end-to-end design for two capabilities:
+> **System design.** This document describes the end-to-end design for two capabilities:
 > (1) the **delivery of event notifications** (the delivery engine) and (2) the **event notification
 > self-service API**. It is written to be vendor-neutral: it names open, standard technologies
 > (Kafka, PostgreSQL, Kubernetes) but does not tie the design to any specific cloud provider or
 > internal platform. "Cloud-native" here is an architectural style, not a vendor.
 
 **Related documents**
-- [`docs/security.md`](./security.md) — Task 3 (OWASP analysis and mitigations).
+- [`docs/security.md`](./security.md) — OWASP analysis and mitigations.
 - [`docs/adr/`](./adr/) — one short ADR per key decision (context, decision, rejected alternatives, consequences).
 
 ---
@@ -39,10 +39,10 @@ Design drivers: **scalability** and **resiliency**.
 
 ## 2. Scope: what is designed vs. what is implemented
 
-This is deliberate, because the reference implementation (Task 2) is the *consumer* slice, while this
-document covers the full distributed system.
+This is deliberate, because the reference implementation is the *consumer* slice, while this document
+covers the full distributed system.
 
-| Concern | Reference implementation (Task 2) | Production target (this design) |
+| Concern | Reference implementation | Production target (this design) |
 |--------|-----------------------------------|---------------------------------|
 | Self-service API (3 endpoints) | ✅ Implemented | ✅ |
 | Webhook delivery mechanism | ✅ Real HTTPS client + HMAC + Resilience4j (in-process retries, circuit breaker, timeouts) | ✅ |
@@ -644,7 +644,7 @@ flowchart TB
 
 | Choice | Selected | Rejected alternative & why |
 |--------|----------|----------------------------|
-| Language/runtime | Java 26 + Spring Boot 4.1 (Spring Framework 7.0.x) | — (challenge constraint) |
+| Language/runtime | Java 26 + Spring Boot 4.1 (Spring Framework 7.0.x) | — (see ADR 0013) |
 | Architecture | Hexagonal (ports & adapters) | Layered — weaker isolation, harder to swap adapters |
 | HTTP client | `RestClient` behind `WebhookClient` port | Stub-only — would not prove real HTTPS/HMAC/timeouts |
 | Resilience | Resilience4j **`resilience4j-spring-boot4` 2.4.0** (retry, breaker, timeout) | Hand-rolled retries — error-prone, no breaker. **Note:** the `-spring-boot3` starter does **not** work on Boot 4 — Boot 4 support landed in 2.4.0 via the dedicated `-spring-boot4` module |
@@ -672,7 +672,7 @@ flowchart TB
 The same domain runs in both worlds; only the adapter behind each port changes. **The domain code is
 identical.**
 
-| Port | Reference adapter (Task 2) | Production adapter |
+| Port | Reference adapter | Production adapter |
 |------|---------------------------|--------------------|
 | `NotificationRepository` | In-memory (`ConcurrentHashMap`), seeded from `notification_events.json` | PostgreSQL (JPA), time-partitioned |
 | `SubscriptionRepository` | In-memory seed (`client_id → url + secret + filter + state`) | Subscriptions bounded context |

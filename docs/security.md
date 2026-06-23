@@ -1,10 +1,10 @@
-# Security — Task 3 (OWASP)
+# Security analysis (OWASP)
 
 The API is assumed to be **consumed publicly over the internet**. This analysis uses only public
 sources: the [OWASP Top 10 2021](https://owasp.org/Top10/) and the
 [OWASP API Security Top 10 2023](https://owasp.org/API-Security/editions/2023/en/0x00-header/).
-It anchors on the 2021 Top 10 (as the challenge asks) and cross-references the API Security Top 10
-2023, which is the more appropriate list for an API.
+It anchors on the 2021 Top 10 and cross-references the API Security Top 10 2023, which is the more
+appropriate list for an API.
 
 Three vulnerabilities are treated **formally** (threat · mitigation · where it lives in the code);
 the rest are covered as additional defence-in-depth controls.

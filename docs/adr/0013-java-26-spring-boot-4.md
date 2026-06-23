@@ -1,7 +1,7 @@
 # 0013 — Java 26 + Spring Boot 4.1 (stack / runtime)
 
 ## Context
-A greenfield personal exercise whose stated purpose is to revisit modern Java and Spring Boot.
+A greenfield service with no legacy constraints, free to choose its Java and Spring Boot versions.
 
 ## Decision
 Build on **Java 26 + Spring Boot 4.1** (Spring Framework 7). Library support on Boot 4 was verified
@@ -10,7 +10,7 @@ module, springdoc via the 3.0.x line, `@WebMvcTest` via `spring-boot-starter-web
 
 ## Alternatives considered
 - **Java 21 LTS + Spring Boot 3.3.x:** more mature ecosystem and long-term support. A production
-  service would likely pick this LTS pair; it was chosen against here only to exercise the latest stack.
+  service might well pick this LTS pair; it was chosen against here to adopt the latest stack.
 
 ## Consequences
 Some libraries needed Boot-4-specific artifacts and the JDK-26 toolchain is auto-provisioned (Foojay).
