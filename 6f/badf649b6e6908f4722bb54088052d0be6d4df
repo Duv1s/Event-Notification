@@ -1,0 +1,19 @@
+.github/workflows/codeql.yml
+  s_6986a9e6d43dad::t_5583cbf42728a3 36-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "6fbadf649b6e6908f4722bb54088052d0be6d4df",
+  "prompts": {},
+  "sessions": {
+    "s_6986a9e6d43dad": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "251dbd80-2f55-4e49-893e-5b2e555eaa2c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Duvis Alejandro Gómez Neira <duvis.alejandro@gmail.com>"
+    }
+  }
+}
