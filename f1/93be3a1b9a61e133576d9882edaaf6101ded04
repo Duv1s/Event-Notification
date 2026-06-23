@@ -1,0 +1,50 @@
+docs/adr/0005-replay-only-from-failed.md
+  s_a4496404aab045::t_0c2165225f70e7 1-18
+docs/adr/0007-ssrf-guard-on-every-delivery.md
+  s_a4496404aab045::t_a8f353a8c0dd0c 1-20
+docs/adr/0009-two-scale-retry-resilience4j.md
+  s_a4496404aab045::t_7a2653b7177787 1-19
+docs/adr/0003-subscription-behind-a-port.md
+  s_a4496404aab045::t_f367ca6b7f7ea4 1-16
+docs/adr/0004-delivery-date-as-occurred-at.md
+  s_a4496404aab045::t_065cea26ba07d4 1-17
+docs/adr/0002-notification-single-aggregate.md
+  s_a4496404aab045::t_a002d68d3d57c7 1-17
+docs/adr/0010-minimal-observability.md
+  s_a4496404aab045::t_25907654c0a0aa 1-18
+docs/adr/0008-oauth2-tenancy-at-the-port.md
+  s_a4496404aab045::t_dacc2f71992c29 1-19
+docs/adr/0011-kafka-backbone-retry-topics.md
+  s_a4496404aab045::t_267a6e575c7bd7 1-18
+docs/adr/README.md
+  s_a4496404aab045::t_78d2b1e1fc9bf0 1-20
+docs/adr/0012-postgresql-outbox-no-cqrs.md
+  s_a4496404aab045::t_1afe496bd3fd9b 1-19
+docs/adr/0013-java-26-spring-boot-4.md
+  s_a4496404aab045::t_5f4cd81110f7f1 1-17
+docs/adr/0001-hexagonal-architecture.md
+  s_a4496404aab045::t_b731877720d8f4 1-19
+docs/adr/0006-at-least-once-hmac-idempotency.md
+  s_a4496404aab045::t_c752c3abb72ce0 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "f193be3a1b9a61e133576d9882edaaf6101ded04",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
