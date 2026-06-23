@@ -1,0 +1,27 @@
+README.md
+  s_a4496404aab045::t_cf3efe1822e1a3 37-39
+build.gradle
+  s_a4496404aab045::t_11f155911e0a41 6
+  s_a4496404aab045::t_bc46752b692357 91-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "8148556464d4ecda8b6a2f4fa0de939f635c09e9",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
