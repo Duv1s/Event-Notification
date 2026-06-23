@@ -72,6 +72,16 @@ spotless {
     }
 }
 
+// Prints a demo JWT (signed with the test-only key) for calling the live API.
+// Usage: ./gradlew -q printDemoToken            (CLIENT001)
+//        ./gradlew -q printDemoToken --args=CLIENT002
+tasks.register('printDemoToken', JavaExec) {
+    group = 'application'
+    description = 'Prints a demo JWT (read+replay scopes) signed with the demo test key.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.cobre.eventnotifications.infrastructure.web.DemoTokenPrinter'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
     // spring-security-test mutates final fields reflectively; allow it so JDK 26 does not warn
