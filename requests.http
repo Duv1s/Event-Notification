@@ -1,0 +1,44 @@
+### Event Notifications — example requests (IntelliJ HTTP client / VS Code REST Client)
+#
+# Tokens below are demo JWTs signed with the committed test key (valid until 2027).
+# Regenerate at any time with:
+#   ./gradlew -q printDemoToken              -> CLIENT001
+#   ./gradlew -q printDemoToken --args=CLIENT002
+# Start the app first: ./gradlew bootRun
+
+@host = http://localhost:8080
+@client001 = eyJraWQiOiJkZW1vLWtleS0xIiwiYWxnIjoiUlMyNTYifQ.eyJhdWQiOiJldmVudC1ub3RpZmljYXRpb25zIiwic3ViIjoidGVzdC1hcHAiLCJzY29wZSI6Im5vdGlmaWNhdGlvbnM6cmVhZCBub3RpZmljYXRpb25zOnJlcGxheSIsImlzcyI6ImRlbW8taXNzdWVyIiwiZXhwIjoxODEzNzA5MjQxLCJpYXQiOjE3ODIxNzMyMzYsImNsaWVudF9pZCI6IkNMSUVOVDAwMSJ9.DHwbinK-V_Z44a42mwn2UtF4lb94iDtbS0wmnzfG9IPhNHdcZNCpOzg_QofpEDMq0k0_uGMkstWQQK5jK2cKI8uv_TjowbkBY5U-GHP4WgO0v64MOxEIuUIAlB8nECtNmfCXp6CRUDlWDfviUFE-omEulwkQCroeVij9nD_8-MkZuSynRqYSvCpZoVy01tyatCKF2gByEI6UHcRdQzgpZaMwF_2SpNj3R1H72_57T4Dt8_9oBgOTlycRMoprk5b0wmlMdXC2X5yCOmXoLW9K-HlhA9xSO6ye1QDE6r6Lz0MFy1zQH7nVpCVHWQHB3TMAXXFzWAxXcR8U5VK8_7t0mg
+@client002 = eyJraWQiOiJkZW1vLWtleS0xIiwiYWxnIjoiUlMyNTYifQ.eyJhdWQiOiJldmVudC1ub3RpZmljYXRpb25zIiwic3ViIjoidGVzdC1hcHAiLCJzY29wZSI6Im5vdGlmaWNhdGlvbnM6cmVhZCBub3RpZmljYXRpb25zOnJlcGxheSIsImlzcyI6ImRlbW8taXNzdWVyIiwiZXhwIjoxODEzNzA5MjQzLCJpYXQiOjE3ODIxNzMyMzgsImNsaWVudF9pZCI6IkNMSUVOVDAwMiJ9.fi9RhtD2KUbDZ4YYh7Cyl_rxbhZRSmp-oMWcPSWhmPgj0BRRVFIyS9Y_SwaqFXdqv81rplTDitO2tg97t4b3dCtJs4HwJlzgcAyphSl86pazyQh6ZQhe11esaTSlI-dAEwZ4YL38RlKkH-UpM-TC9QatjDttVx5F2RdS4S1b3nnsxcnVUjkgkADUAiPY9aIHj5MWnjPoTRI7XKfZT5MSbuDitxFNl5JuTavVpTb_r0thR1bF8E8W6XQ-vaarpd3g6N1RBchE-6PaQ9PwIyGTqhpLVLVV5oMOHj1qEpUVukBGSv98oUgw1Jtff01DSFdq-6HjT0bkTmf6i8pj3lcCag
+
+### List the caller's notifications (CLIENT001), filtered + paginated
+GET {{host}}/v1/notification_events?delivery_status=COMPLETED&page_size=5
+Authorization: Bearer {{client001}}
+
+### List filtering by event date range and multiple statuses
+GET {{host}}/v1/notification_events?occurred_from=2024-03-15T00:00:00Z&occurred_to=2024-03-16T00:00:00Z&delivery_status=COMPLETED,FAILED
+Authorization: Bearer {{client001}}
+
+### Get a single notification with its delivery-attempt history (CLIENT001 owns EVT001)
+GET {{host}}/v1/notification_events/EVT001
+Authorization: Bearer {{client001}}
+
+### Tenant isolation: CLIENT001 cannot see CLIENT002's EVT003 -> 404
+GET {{host}}/v1/notification_events/EVT003
+Authorization: Bearer {{client001}}
+
+### Replay a FAILED notification -> 202 Accepted (CLIENT002 owns the failed EVT003)
+POST {{host}}/v1/notification_events/EVT003/replay
+Authorization: Bearer {{client002}}
+
+### Replay a COMPLETED notification -> 409 Conflict (EVT001 is not FAILED)
+POST {{host}}/v1/notification_events/EVT001/replay
+Authorization: Bearer {{client001}}
+
+### No token -> 401 Unauthorized
+GET {{host}}/v1/notification_events
+
+### Public endpoints (no token)
+GET {{host}}/actuator/health
+
+###
+GET {{host}}/actuator/prometheus
