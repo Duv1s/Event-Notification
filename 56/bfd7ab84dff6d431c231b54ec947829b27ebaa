@@ -1,0 +1,32 @@
+src/test/java/com/cobre/eventnotifications/ObservabilityIntegrationTest.java
+  s_a4496404aab045::t_01b21ec3d7ba15 80
+  s_a4496404aab045::t_4179c79855420b 1-79
+src/test/java/com/cobre/eventnotifications/infrastructure/webhook/ResilientWebhookClientTest.java
+  s_a4496404aab045::t_57510bc0536a5a 32
+  s_a4496404aab045::t_ac447f26ebaa6c 13
+  s_a4496404aab045::t_15a3aa690785d5 220
+  s_a4496404aab045::t_01b21ec3d7ba15 105-108,113-114
+  s_a4496404aab045::t_85ddb98b657703 79,85
+  s_a4496404aab045::t_102fccd2be94c1 100-104,109-112,115-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "56bfd7ab84dff6d431c231b54ec947829b27ebaa",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
