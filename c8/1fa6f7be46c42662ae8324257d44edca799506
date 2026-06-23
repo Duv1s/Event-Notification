@@ -1,0 +1,43 @@
+docs/adr/0013-java-26-spring-boot-4.md
+  s_a4496404aab045::t_eaf11c7f916adf 4
+  s_a4496404aab045::t_a1d192e94cc2c1 13
+README.md
+  s_a4496404aab045::t_29cb8ad27b53e7 48-52
+  s_a4496404aab045::t_060a7a51774b33 92-103
+  s_a4496404aab045::t_7c05515c37cbff 30-33
+  s_a4496404aab045::t_894f36dbed63f6 129-132
+  s_a4496404aab045::t_18a446b5339ee5 11,13
+  s_a4496404aab045::t_55ac83022b3566 42-46
+docs/system-design.md
+  s_a4496404aab045::t_867eea32d232eb 647
+  s_a4496404aab045::t_f1261d99841d01 42-43
+  s_a4496404aab045::t_11b3186328837b 3
+  s_a4496404aab045::t_2da2691e9e7431 10
+  s_a4496404aab045::t_aae7c7981ff7e2 45
+  s_a4496404aab045::t_d1398289ccbd69 675
+docs/security.md
+  s_a4496404aab045::t_07f5fca548c306 1,6-7
+docs/adr/0003-subscription-behind-a-port.md
+  s_a4496404aab045::t_ac983c67bbaee5 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "c81fa6f7be46c42662ae8324257d44edca799506",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
