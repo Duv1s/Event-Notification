@@ -10,6 +10,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.cobre.eventnotifications.application.port.DeliveryOutcome;
@@ -28,6 +29,7 @@ import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.retry.Retry;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -74,11 +76,13 @@ class ResilientWebhookClientTest {
 
     private RestClient restClient;
     private String httpsBaseUrl;
+    private SimpleMeterRegistry meterRegistry;
 
     @BeforeEach
     void setUp() {
         restClient = trustAllRestClient();
         httpsBaseUrl = WM.getRuntimeInfo().getHttpsBaseUrl();
+        meterRegistry = new SimpleMeterRegistry();
     }
 
     @Test
@@ -90,6 +94,24 @@ class ResilientWebhookClientTest {
         assertTrue(outcome.success());
         assertEquals(200, outcome.httpStatus());
         WM.verify(1, postRequestedFor(urlEqualTo(PATH)));
+    }
+
+    @Test
+    void recordsDeliveryMetricsWithLowCardinalityTagsOnly() {
+        WM.stubFor(post(PATH).willReturn(ok()));
+
+        client(1, lenientCircuitBreaker()).send(notification(), subscription());
+
+        var counter = meterRegistry
+                .find("webhook.deliveries")
+                .tag("outcome", "success")
+                .counter();
+        assertNotNull(counter);
+        assertEquals(1.0, counter.count());
+        assertEquals(1L, meterRegistry.find("webhook.delivery.duration").timer().count());
+        assertTrue(counter.getId().getTags().stream()
+                .noneMatch(
+                        tag -> tag.getKey().equals("client_id") || tag.getKey().equals("subscription_id")));
     }
 
     @Test
@@ -195,7 +217,7 @@ class ResilientWebhookClientTest {
 
     private ResilientWebhookClient client(int maxAttempts, CircuitBreakerRegistry circuitBreakers) {
         Retry retry = Retry.of("test", ResilientWebhookClient.webhookRetryConfig(maxAttempts, 10, 50, 2000));
-        return new ResilientWebhookClient(restClient, PERMISSIVE_GUARD, retry, circuitBreakers, CLOCK);
+        return new ResilientWebhookClient(restClient, PERMISSIVE_GUARD, retry, circuitBreakers, CLOCK, meterRegistry);
     }
 
     private static CircuitBreakerRegistry lenientCircuitBreaker() {
