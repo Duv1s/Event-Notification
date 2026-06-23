@@ -47,9 +47,22 @@ Test coverage (JaCoCo) is generated automatically by `test`; open the HTML repor
 
 ### Continuous integration
 
-Every push and pull request runs [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — `./gradlew build`
-(compile + tests + Spotless + ArchUnit) on `ubuntu-latest`, with the Java 26 toolchain auto-provisioned
-via Foojay. CodeQL ([`codeql.yml`](.github/workflows/codeql.yml)) adds SAST.
+Three GitHub Actions workflows guard `main` and every pull request:
+
+- **CI** ([`ci.yml`](.github/workflows/ci.yml)) — on each push and PR, runs `./gradlew build` on
+  `ubuntu-latest`: it compiles, runs the unit/slice/integration tests, checks formatting (Spotless)
+  and enforces the hexagonal boundary rules (ArchUnit), so a broken build, a failing test, bad
+  formatting or a crossed architecture boundary blocks the merge. A stable JDK 21 drives Gradle while
+  the Java 26 toolchain is auto-provisioned via Foojay.
+- **CodeQL** ([`codeql.yml`](.github/workflows/codeql.yml)) — static application security testing
+  (SAST) over the Java sources on every push and PR, plus a weekly scheduled scan.
+- **Dependabot** ([`dependabot.yml`](.github/dependabot.yml)) — weekly dependency-update PRs for the
+  Gradle and GitHub Actions ecosystems; each one is gated by the same CI + CodeQL checks before it can
+  merge.
+
+![GitHub Actions workflow runs all passing](docs/images/ci-github-actions.png)
+
+*GitHub Actions filtered to completed + successful runs: `CI` and `CodeQL` green across direct pushes and Dependabot PRs.*
 
 ## Authenticate & call the API
 
