@@ -1,0 +1,31 @@
+.dockerignore
+  s_a4496404aab045::t_5ac8e4bd4d21d0 1-9
+build.gradle
+  s_a4496404aab045::t_34e1661a6d00df 75-84
+Dockerfile
+  s_a4496404aab045::t_1e71cf4eb9424c 1-23
+src/test/java/com/cobre/eventnotifications/infrastructure/web/DemoTokenPrinter.java
+  s_a4496404aab045::t_23ddeec1f5533c 27
+  s_a4496404aab045::t_5f3bb82ae9771d 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "4e7e5e6792246cb1c56a048c7f67027d3d93e859",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
