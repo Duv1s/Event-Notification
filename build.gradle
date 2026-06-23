@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '4.1.0'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.diffplug.spotless' version '8.7.0'
+    id 'jacoco'
 }
 
 group = 'com.cobre'
@@ -87,4 +88,18 @@ tasks.named('test') {
     // spring-security-test mutates final fields reflectively; allow it so JDK 26 does not warn
     // (and to stay forward-compatible once final-field mutation is blocked by default).
     jvmArgs('--enable-final-field-mutation=ALL-UNNAMED')
+    finalizedBy tasks.named('jacocoTestReport')
+}
+
+jacoco {
+    toolVersion = '0.8.15'
+}
+
+tasks.named('jacocoTestReport') {
+    dependsOn tasks.named('test')
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
 }

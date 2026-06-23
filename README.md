@@ -34,6 +34,9 @@ Starts on `http://localhost:8080` with **no setup**: at startup the seed (`notif
 ./gradlew build    # the above + Spotless formatting check + ArchUnit boundary rules
 ```
 
+Test coverage (JaCoCo) is generated automatically by `test`; open the HTML report at
+`build/reports/jacoco/test/html/index.html` (or run `./gradlew jacocoTestReport`).
+
 ## Authenticate & call the API
 
 `/v1/**` requires an OAuth2 **JWT** (the API is assumed public on the internet). For the demo the
