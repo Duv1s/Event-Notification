@@ -15,6 +15,13 @@ management:
       probes:
         enabled: true
 
+# Native Spring Boot structured (JSON) console logging; MDC fields (trace_id, client_id, event_id)
+# appear in each line. Never log PII (content, signature, secret, token).
+logging:
+  structured:
+    format:
+      console: ecs
+
 # Application configuration. Every default is a DEMO value, overridden per environment.
 # In production these come from environment variables / a secrets manager, never from this file.
 app:
