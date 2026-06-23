@@ -40,8 +40,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers(
+                                // Public for the demo; in production these would be restricted by network/ACL.
                                 "/actuator/health",
                                 "/actuator/health/**",
+                                "/actuator/info",
+                                "/actuator/prometheus",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",

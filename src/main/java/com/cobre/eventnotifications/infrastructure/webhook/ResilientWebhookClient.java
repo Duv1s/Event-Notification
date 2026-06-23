@@ -15,6 +15,7 @@ import io.github.resilience4j.core.IntervalBiFunction;
 import io.github.resilience4j.core.functions.Either;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
+import io.micrometer.core.instrument.MeterRegistry;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -27,6 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -43,6 +45,9 @@ import org.springframework.web.client.RestClient;
  * <p>{@link #send} returns the FINAL outcome after the in-process retries. One {@code DeliveryAttempt}
  * is therefore recorded per delivery invocation: the in-process retries are collapsed. In production
  * each spaced retry (re-consumed by a worker) is a separate attempt.
+ *
+ * <p>Each invocation records a delivery counter and latency timer, tagged only with low-cardinality
+ * dimensions ({@code outcome}, {@code event_type}) — never the client or subscription id.
  */
 public class ResilientWebhookClient implements WebhookClient {
 
@@ -55,6 +60,7 @@ public class ResilientWebhookClient implements WebhookClient {
     private final Retry retry;
     private final CircuitBreakerRegistry circuitBreakerRegistry;
     private final Clock clock;
+    private final MeterRegistry meterRegistry;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ResilientWebhookClient(
@@ -62,12 +68,14 @@ public class ResilientWebhookClient implements WebhookClient {
             SsrfGuard ssrfGuard,
             Retry retry,
             CircuitBreakerRegistry circuitBreakerRegistry,
-            Clock clock) {
+            Clock clock,
+            MeterRegistry meterRegistry) {
         this.restClient = Objects.requireNonNull(restClient, "restClient");
         this.ssrfGuard = Objects.requireNonNull(ssrfGuard, "ssrfGuard");
         this.retry = Objects.requireNonNull(retry, "retry");
         this.circuitBreakerRegistry = Objects.requireNonNull(circuitBreakerRegistry, "circuitBreakerRegistry");
         this.clock = Objects.requireNonNull(clock, "clock");
+        this.meterRegistry = Objects.requireNonNull(meterRegistry, "meterRegistry");
     }
 
     /** Builds the retry policy: full-jitter exponential backoff, honouring Retry-After (capped). */
@@ -108,6 +116,13 @@ public class ResilientWebhookClient implements WebhookClient {
 
     @Override
     public DeliveryOutcome send(Notification notification, Subscription subscription) {
+        long startNanos = System.nanoTime();
+        DeliveryOutcome outcome = attemptDelivery(notification, subscription);
+        recordMetrics(outcome, notification.eventType().value(), System.nanoTime() - startNanos);
+        return outcome;
+    }
+
+    private DeliveryOutcome attemptDelivery(Notification notification, Subscription subscription) {
         try {
             ssrfGuard.validate(subscription.url());
         } catch (BlockedTargetException e) {
@@ -132,6 +147,16 @@ public class ResilientWebhookClient implements WebhookClient {
         } catch (CallNotPermittedException e) {
             return DeliveryOutcome.retryableFailure(null, "circuit breaker open for destination");
         }
+    }
+
+    private void recordMetrics(DeliveryOutcome outcome, String eventType, long durationNanos) {
+        String result = outcome.success() ? "success" : outcome.retryable() ? "retryable_failure" : "permanent_failure";
+        meterRegistry
+                .counter("webhook.deliveries", "outcome", result, "event_type", eventType)
+                .increment();
+        meterRegistry
+                .timer("webhook.delivery.duration", "outcome", result, "event_type", eventType)
+                .record(durationNanos, TimeUnit.NANOSECONDS);
     }
 
     private DeliveryOutcome attemptOnce(WebhookUrl url, byte[] body, Map<String, String> headers) {

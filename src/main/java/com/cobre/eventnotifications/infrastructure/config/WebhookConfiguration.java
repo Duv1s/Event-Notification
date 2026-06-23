@@ -7,7 +7,9 @@ import com.cobre.eventnotifications.application.usecase.DeliverNotification;
 import com.cobre.eventnotifications.infrastructure.webhook.ResilientWebhookClient;
 import com.cobre.eventnotifications.infrastructure.webhook.SsrfGuard;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
+import io.github.resilience4j.micrometer.tagged.TaggedCircuitBreakerMetrics;
 import io.github.resilience4j.retry.Retry;
+import io.micrometer.core.instrument.MeterRegistry;
 import java.time.Clock;
 import java.time.Duration;
 import java.util.concurrent.Executor;
@@ -60,9 +62,13 @@ public class WebhookConfiguration {
     }
 
     @Bean
-    public CircuitBreakerRegistry webhookCircuitBreakerRegistry() {
-        return CircuitBreakerRegistry.of(
+    public CircuitBreakerRegistry webhookCircuitBreakerRegistry(MeterRegistry meterRegistry) {
+        CircuitBreakerRegistry registry = CircuitBreakerRegistry.of(
                 ResilientWebhookClient.webhookCircuitBreakerConfig(20, 10, 50f, Duration.ofSeconds(30)));
+        // The manually-created registry is not bound by the Resilience4j autoconfiguration, so bind it
+        // explicitly to publish per-destination circuit breaker metrics to Micrometer.
+        TaggedCircuitBreakerMetrics.ofCircuitBreakerRegistry(registry).bindTo(meterRegistry);
+        return registry;
     }
 
     @Bean
@@ -70,9 +76,11 @@ public class WebhookConfiguration {
             RestClient webhookRestClient,
             SsrfGuard ssrfGuard,
             CircuitBreakerRegistry webhookCircuitBreakerRegistry,
-            Clock clock) {
+            Clock clock,
+            MeterRegistry meterRegistry) {
         Retry retry = Retry.of("webhook", ResilientWebhookClient.webhookRetryConfig(4, 500, 5000, 60_000));
-        return new ResilientWebhookClient(webhookRestClient, ssrfGuard, retry, webhookCircuitBreakerRegistry, clock);
+        return new ResilientWebhookClient(
+                webhookRestClient, ssrfGuard, retry, webhookCircuitBreakerRegistry, clock, meterRegistry);
     }
 
     @Bean
