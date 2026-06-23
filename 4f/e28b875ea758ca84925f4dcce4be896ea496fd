@@ -1,0 +1,29 @@
+src/main/java/com/cobre/eventnotifications/infrastructure/config/AsyncDeliveryDispatcher.java
+  s_a4496404aab045::t_6330b5e6dfacb1 6-8,15-16,21-22,32-38
+src/main/java/com/cobre/eventnotifications/infrastructure/web/RequestCorrelationFilter.java
+  s_a4496404aab045::t_660b61165d389b 1-34,37-57
+  s_a4496404aab045::t_01b21ec3d7ba15 35-36,58
+src/main/resources/application.yml
+  s_a4496404aab045::t_1ce0850e6e6246 18-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "4fe28b875ea758ca84925f4dcce4be896ea496fd",
+  "prompts": {},
+  "humans": {
+    "h_46a69605d9e144": {
+      "author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  },
+  "sessions": {
+    "s_a4496404aab045": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1d1c415-0b68-40f3-9d94-d93f888a3c2d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "dugomez_meli <duvis.gomez@mercadolibre.com.co>"
+    }
+  }
+}
