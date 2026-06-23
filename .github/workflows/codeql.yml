@@ -33,7 +33,9 @@ jobs:
           build-mode: manual
 
       - name: Compile
-        run: ./gradlew compileJava --no-daemon
+        # clean + no build cache forces javac to actually run so CodeQL can trace the sources
+        # (an UP-TO-DATE incremental compile produces "no source code seen during build").
+        run: ./gradlew clean compileJava --no-daemon --no-build-cache
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
