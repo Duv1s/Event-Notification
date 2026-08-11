@@ -55,7 +55,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-restclient-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    testImplementation 'com.tngtech.archunit:archunit-junit5:1.4.2'
+    testImplementation 'com.tngtech.archunit:archunit-junit5:1.5.0'
     testImplementation 'org.wiremock:wiremock-standalone:3.13.2'
     testImplementation 'com.nimbusds:nimbus-jose-jwt'
     testCompileOnly 'org.projectlombok:lombok'
